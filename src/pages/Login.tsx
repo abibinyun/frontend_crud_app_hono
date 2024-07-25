@@ -1,5 +1,5 @@
 // src/components/Login.js
-import React, { useState } from 'react';
+import { useState } from 'react';
 import axios from 'axios';
 import Cookies from 'js-cookie';
 
@@ -21,6 +21,7 @@ const Login = () => {
         const { token } = response.data;
         Cookies.set('token', token, { expires: 7 });
         setError('');
+        window.location.reload()
       } else {
         setError('Login failed. Please check your credentials.');
         console.error('Invalid response data:', response.data);

@@ -8,7 +8,6 @@ const Dashboard = () => {
 
   useEffect(() => {
     const token = Cookies.get('token');
-    console.log("TOKEN: ", token)
 
     if (token) {
       axios.get('http://localhost:3000/verify', {
@@ -17,7 +16,6 @@ const Dashboard = () => {
         },
       })
       .then(response => {
-        response
         setIsLoggedIn(true); // Set state isLoggedIn jika token valid
         setIsLoading(false);
       })
