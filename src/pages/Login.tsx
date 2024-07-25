@@ -3,26 +3,35 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import Cookies from 'js-cookie';
 
-const Login = ({ setToken }: any) => {
+const Login = () => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
-  const [error, setError] = useState<string | undefined>('');
+  const [error, setError] = useState('');
 
   const handleLogin = async (e: any) => {
     e.preventDefault();
+
     try {
-      const response = await axios.post('http://localhost:3000/auth/login', {
+      const response = await axios.post(`${import.meta.env.VITE_API_URL}/auth/login`, {
         email: username,
         password,
       });
-      const { token } = response.data;
-      Cookies.set('token', token, { expires: 7 });
-      setToken(token); // Simpan token ke dalam state aplikasi atau localStorage
+
+      if (response.status === 200 && response.data && response.data.token) {
+        const { token } = response.data;
+        Cookies.set('token', token, { expires: 7 });
+        setError('');
+      } else {
+        setError('Login failed. Please check your credentials.');
+        console.error('Invalid response data:', response.data);
+      }
+
     } catch (error) {
       setError('Login failed. Please check your credentials.');
       console.error('Login error:', error);
     }
   };
+  
 
   return (
     <div>

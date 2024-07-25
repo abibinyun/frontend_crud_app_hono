@@ -25,8 +25,11 @@ export const Route = createRootRoute({
 			<div className="p-2 flex gap-2">
 				<ModeToggle />
 				<div className="flex justify-center items-center gap-2">
+					<Link to="/">
+						Home
+					</Link>
 					<Link to="/dashboard">
-						dashboard
+						Dashboard
 					</Link>
 					<Link to="/login">
 						Login
